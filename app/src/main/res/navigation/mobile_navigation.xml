@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mobile_navigation"
+    app:startDestination="@id/destination_current">
+
+    <fragment
+        android:id="@+id/destination_current"
+        android:name="com.example.forecastapplication.ui.current.CurrentWeatherFragment"
+        android:label="Погода сегодня" />
+
+    <fragment
+        android:id="@+id/destination_future"
+        android:name="com.example.forecastapplication.ui.future.FutureWeatherFragment"
+        android:label="Прогноз погоды" />
+
+    <fragment
+        android:id="@+id/destination_settings"
+        android:name="com.example.forecastapplication.ui.settings.SettingsFragment"
+        android:label="Настройки" />
+
+</navigation>
