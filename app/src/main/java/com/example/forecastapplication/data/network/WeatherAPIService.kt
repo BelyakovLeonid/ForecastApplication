@@ -1,4 +1,4 @@
-package com.example.forecastapplication.data
+package com.example.forecastapplication.data.network
 
 import com.example.forecastapplication.data.network.response.CurrentWeatherResponse
 import com.example.forecastapplication.data.network.response.FutureWeatherResponse
@@ -34,7 +34,7 @@ interface WeatherAPIService {
 
 
     companion object{
-        operator fun invoke(): WeatherAPIService{
+        operator fun invoke(): WeatherAPIService {
 
             val requestInterceptor = Interceptor{chain ->
                 val url = chain.request()
