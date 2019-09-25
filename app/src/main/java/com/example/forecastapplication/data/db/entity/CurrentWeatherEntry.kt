@@ -1,8 +1,14 @@
-package com.example.forecastapplication.data.network.response
+package com.example.forecastapplication.data.db.entity
 
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+const val CURRENT_WEATHER_ID = 0
+
+@Entity(tableName = "current_weather")
 data class CurrentWeatherEntry(
     @SerializedName("temp_c")
     val tempC: Double,
@@ -10,7 +16,7 @@ data class CurrentWeatherEntry(
     val tempF: Double,
     @SerializedName("is_day")
     val isDay: Int,
-    @SerializedName("condition")
+    @Embedded(prefix = "condition_")
     val condition: Condition,
     @SerializedName("wind_mph")
     val windMph: Double,
@@ -20,18 +26,10 @@ data class CurrentWeatherEntry(
     val windDegree: Int,
     @SerializedName("wind_dir")
     val windDir: String,
-    @SerializedName("pressure_mb")
-    val pressureMb: Double,
-    @SerializedName("pressure_in")
-    val pressureIn: Double,
     @SerializedName("precip_mm")
     val precipMm: Double,
     @SerializedName("precip_in")
     val precipIn: Double,
-    @SerializedName("humidity")
-    val humidity: Int,
-    @SerializedName("cloud")
-    val cloud: Int,
     @SerializedName("feelslike_c")
     val feelslikeC: Double,
     @SerializedName("feelslike_f")
@@ -40,4 +38,7 @@ data class CurrentWeatherEntry(
     val visKm: Double,
     @SerializedName("vis_miles")
     val visMiles: Double
-)
+){
+    @PrimaryKey(autoGenerate = false)
+    var id: Int = CURRENT_WEATHER_ID
+}
