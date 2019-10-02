@@ -1,6 +1,7 @@
-package com.example.forecastapplication.data.network.response
+package com.example.forecastapplication.data.db.entity
 
 
+import androidx.room.Embedded
 import com.example.forecastapplication.data.db.entity.Condition
 import com.google.gson.annotations.SerializedName
 
@@ -31,6 +32,6 @@ data class Day(
     val avgvisMiles: Double,
     @SerializedName("avghumidity")
     val avghumidity: Double,
-    @SerializedName("condition")
+    @Embedded(prefix = "condition_")
     val condition: Condition
 )
