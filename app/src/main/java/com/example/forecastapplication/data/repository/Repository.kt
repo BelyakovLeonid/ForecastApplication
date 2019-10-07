@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.forecastapplication.ForecastApp.Companion.dataBase
 import com.example.forecastapplication.data.network.response.CurrentWeatherResponse
 import com.example.forecastapplication.data.network.response.FutureWeatherResponse
+import com.example.forecastapplication.data.providers.LocationProvider
 import com.example.forecastapplication.data.unitlocalaized.current.UnitSpecificCurrentWeatherEntry
 import com.example.forecastapplication.data.unitlocalaized.future.UnitSpecificFutureWeatherEntry
 import kotlinx.coroutines.Dispatchers
@@ -76,8 +77,13 @@ object Repository {
     }
 
     private suspend fun initWeather(){
-        // сюда еще добавить, что если локация изменилась, то мы тоже обновляем погоду
         val location = locationWeatherDao.getLocationNonLive()
+
+        if(location == null || LocationProvider.hasLocationChanged(location)){
+            fetchCurrentWeather()
+            fetchFutureWeather()
+            return
+        }
 
         if(isFetchCurrentWeatherNeeded(location.zonedDateTime))
             fetchCurrentWeather()
@@ -103,6 +109,5 @@ object Repository {
         val today = LocalDate.now()
         val actualDays = futureWeatherDao.countFutureWeather(today)
         return actualDays >= FUTURE_DAYS_COUNT
-    }
-
+   }
 }
