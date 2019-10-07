@@ -1,4 +1,4 @@
-package com.example.forecastapplication.data.db
+package com.example.forecastapplication.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -14,7 +14,7 @@ import java.util.*
 @Dao
 interface FutureWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(futureWeatherEntries: List<FutureWeatherEntry>)
+    fun insert(futureWeatherEntries: List<FutureWeatherEntry>)
 
     @Query("SELECT * FROM future_weather WHERE date(date) > date(:startDate)")
     fun getFutureWeatherMetric(startDate: LocalDate): LiveData<List<MetricFutureWeatherEntry>>
