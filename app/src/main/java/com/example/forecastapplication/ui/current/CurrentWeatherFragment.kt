@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.forecastapplication.R
-import com.example.forecastapplication.data.network.WeatherAPIService
 import com.example.forecastapplication.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.fragment_current_weather.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class CurrentWeatherFragment : ScopedFragment() {
+
+    private lateinit var viewModel: CurrentWeatherViewModel
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,12 +26,20 @@ class CurrentWeatherFragment : ScopedFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val apiService = WeatherAPIService()
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val response = apiService.getCurrentWeather("Samara").await()
-            textView.text = response.toString()
-        }
+        viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
 
+        bindUI()
+    }
+
+    private fun bindUI() = launch {
+        val currentWeather = viewModel.currentWeather.await()
+        val locationWeather = viewModel.weatherLocation.await()
+
+        currentWeather.observe(this@CurrentWeatherFragment, Observer {weatherEntry ->
+            if(weatherEntry == null) return@Observer
+
+            textView.text = weatherEntry.toString()
+        })
     }
 }

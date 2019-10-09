@@ -4,16 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.preference.PreferenceManager
 import com.example.forecastapplication.data.db.WeatherDataBase
-import com.example.forecastapplication.data.db.entity.FutureWeatherEntry
-import com.example.forecastapplication.data.network.WeatherAPIService
-import com.example.forecastapplication.data.providers.PreferenceProvider
 import com.google.android.gms.location.FusedLocationProviderClient
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.threeten.bp.LocalDate
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 class ForecastApp: Application() {
 
@@ -29,6 +23,9 @@ class ForecastApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
+
         appContext = applicationContext
         dataBase = WeatherDataBase.invoke(this)
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)

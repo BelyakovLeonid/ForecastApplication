@@ -2,6 +2,7 @@ package com.example.forecastapplication.data.repository
 
 import androidx.lifecycle.LiveData
 import com.example.forecastapplication.ForecastApp.Companion.dataBase
+import com.example.forecastapplication.data.db.entity.LocationWeatherEntry
 import com.example.forecastapplication.data.network.response.CurrentWeatherResponse
 import com.example.forecastapplication.data.network.response.FutureWeatherResponse
 import com.example.forecastapplication.data.providers.LocationProvider
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZonedDateTime
+import java.util.*
 
 object Repository {
 
@@ -47,8 +49,8 @@ object Repository {
 
     //out нужен для того, чтобы можно было возвращать наследников класса (интерфейса) UnitSpecificCurrrentWeather
     suspend fun getCurrentWeather(isMetric: Boolean): LiveData<out UnitSpecificCurrentWeatherEntry>{
-        initWeather()
         return withContext(Dispatchers.IO){
+            initWeather()
             return@withContext if (isMetric) currentWeatherDao.getCurrentWeatherMetric()
                 else currentWeatherDao.getCurrentWeatherImperial()
         }
@@ -58,8 +60,8 @@ object Repository {
         date: LocalDate,
         isMetric: Boolean
     ): LiveData<out List<UnitSpecificFutureWeatherEntry>>{
-        initWeather()
         return withContext(Dispatchers.IO){
+            initWeather()
             return@withContext if (isMetric) futureWeatherDao.getFutureWeatherMetric(date)
                 else futureWeatherDao.getFutureWeatherImperial(date)
         }
@@ -69,10 +71,16 @@ object Repository {
         date: LocalDate,
         isMetric: Boolean
     ): LiveData<out UnitSpecificFutureWeatherEntry>{
-        initWeather()
         return withContext(Dispatchers.IO){
+            initWeather()
             return@withContext if(isMetric) futureWeatherDao.getFutureWeatherByDayMetric(date)
                 else futureWeatherDao.getFutureWeatherByDayImperial(date)
+        }
+    }
+
+    suspend fun getWeatherLocation(): LiveData<LocationWeatherEntry>{
+        return withContext(Dispatchers.IO){
+            return@withContext locationWeatherDao.getLocation()
         }
     }
 
@@ -93,11 +101,17 @@ object Repository {
     }
 
     private suspend fun fetchCurrentWeather() {
-        WeatherDataSource.fetchCurrentWeather("Samara", "en")
+        WeatherDataSource.fetchCurrentWeather(
+            LocationProvider.getPreferredLocationString(),
+            Locale.getDefault().language
+        )
     }
 
     private suspend fun fetchFutureWeather() {
-        WeatherDataSource.fetchFutureWeather("Samara", "en")
+        WeatherDataSource.fetchFutureWeather(
+            LocationProvider.getPreferredLocationString(),
+            Locale.getDefault().language
+        )
     }
 
     private fun isFetchCurrentWeatherNeeded(lastFetchedTime: ZonedDateTime): Boolean{
@@ -108,6 +122,6 @@ object Repository {
     private fun isFetchFutureWeatherNeeded(): Boolean {
         val today = LocalDate.now()
         val actualDays = futureWeatherDao.countFutureWeather(today)
-        return actualDays >= FUTURE_DAYS_COUNT
+        return actualDays < FUTURE_DAYS_COUNT
    }
 }
