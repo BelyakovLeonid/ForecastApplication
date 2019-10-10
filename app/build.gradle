@@ -61,8 +61,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.2.0-rc01"
 
     //ViewModel
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
     //Date - Time
     implementation "com.jakewharton.threetenabp:threetenabp:1.1.0"
@@ -72,4 +72,8 @@ dependencies {
 
     //Location
     implementation "com.google.android.gms:play-services-location:17.0.0"
+
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+
 }

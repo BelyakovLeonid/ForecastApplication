@@ -1,22 +1,22 @@
-package com.example.forecastapplication.data.unitlocalaized.future
+package com.example.forecastapplication.data.unitlocalaized.future.detail
 
 import androidx.room.ColumnInfo
 import org.threeten.bp.LocalDate
 
-class MetricFutureWeatherEntry(
+class ImperialFutureWeatherEntry(
     @ColumnInfo(name = "date")
     override val date: LocalDate,
-    @ColumnInfo(name = "maxtempC")
+    @ColumnInfo(name = "maxtempF")
     override val maxTemperature: Double,
-    @ColumnInfo(name = "mintempC")
+    @ColumnInfo(name = "mintempF")
     override val minTemperature: Double,
-    @ColumnInfo(name = "avgtempC")
+    @ColumnInfo(name = "avgtempF")
     override val avgTemperature: Double,
-    @ColumnInfo(name = "maxwindKph")
+    @ColumnInfo(name = "maxwindMph")
     override val maxWind: Double,
-    @ColumnInfo(name = "totalprecipMm")
+    @ColumnInfo(name = "totalprecipIn")
     override val totalPrecip: Double,
-    @ColumnInfo(name = "avgvisKm")
+    @ColumnInfo(name = "avgvisMiles")
     override val avgVisibility: Double,
     @ColumnInfo(name = "avghumidity")
     override val avgHumidity: Double,

@@ -7,7 +7,8 @@ import com.example.forecastapplication.data.network.response.CurrentWeatherRespo
 import com.example.forecastapplication.data.network.response.FutureWeatherResponse
 import com.example.forecastapplication.data.providers.LocationProvider
 import com.example.forecastapplication.data.unitlocalaized.current.UnitSpecificCurrentWeatherEntry
-import com.example.forecastapplication.data.unitlocalaized.future.UnitSpecificFutureWeatherEntry
+import com.example.forecastapplication.data.unitlocalaized.future.detail.UnitSpecificFutureWeatherEntry
+import com.example.forecastapplication.data.unitlocalaized.future.simple.UnitSpecificShortFutureWeatherEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -59,7 +60,7 @@ object Repository {
     suspend fun getFutureWeather(
         date: LocalDate,
         isMetric: Boolean
-    ): LiveData<out List<UnitSpecificFutureWeatherEntry>>{
+    ): LiveData<out List<UnitSpecificShortFutureWeatherEntry>>{
         return withContext(Dispatchers.IO){
             initWeather()
             return@withContext if (isMetric) futureWeatherDao.getFutureWeatherMetric(date)

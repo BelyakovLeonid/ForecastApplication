@@ -1,4 +1,4 @@
-package com.example.forecastapplication.data.unitlocalaized.future
+package com.example.forecastapplication.data.unitlocalaized.future.detail
 
 import androidx.room.Embedded
 import com.example.forecastapplication.data.db.entity.Condition

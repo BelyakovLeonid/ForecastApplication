@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.forecastapplication.R
 import com.example.forecastapplication.data.db.entity.LocationWeatherEntry
+import com.example.forecastapplication.local.chooseUnitAbberviation
 import com.example.forecastapplication.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.fragment_current_weather.*
 import kotlinx.coroutines.launch
@@ -78,30 +79,23 @@ class CurrentWeatherFragment : ScopedFragment() {
     }
 
     private fun updateTemperatures(temperature: Double, temperatureFeelsLike: Double){
-        val unitAbberviation = chooseLocalizedUnitsAbberviation("°C", "°F")
+        val unitAbberviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"°C", "°F")
         textView_temperature.text = "$temperature$unitAbberviation"
         textView_feels_like_temperature.text = "$temperatureFeelsLike$unitAbberviation"
     }
 
     private fun updateWind(windSpeed: Double, windDirection: String){
-        val unitAbberviation = chooseLocalizedUnitsAbberviation("Kph", "Mph")
+        val unitAbberviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"Kph", "Mph")
         textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbberviation"
     }
 
     private fun updatePreciptiation(precipitation: Double){
-        val unitAbberviation = chooseLocalizedUnitsAbberviation("mm", "in")
+        val unitAbberviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"mm", "in")
         textView_precipitation.text = "Precipitation: $precipitation $unitAbberviation"
     }
 
     private fun updateVisibility(visibilityDistance: Double) {
-        val unitAbbreviation = chooseLocalizedUnitsAbberviation("km", "mi.")
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"km", "mi.")
         textView_visibility.text = "Visibility: $visibilityDistance $unitAbbreviation"
-    }
-
-    private fun chooseLocalizedUnitsAbberviation(metric: String, imperial: String): String{
-        if (viewModel.unitSystemIsMetric)
-            return metric
-        else
-            return imperial
     }
 }

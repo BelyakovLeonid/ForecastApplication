@@ -6,10 +6,11 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.forecastapplication.data.db.entity.FutureWeatherEntry
-import com.example.forecastapplication.data.unitlocalaized.future.ImperialFutureWeatherEntry
-import com.example.forecastapplication.data.unitlocalaized.future.MetricFutureWeatherEntry
+import com.example.forecastapplication.data.unitlocalaized.future.detail.ImperialFutureWeatherEntry
+import com.example.forecastapplication.data.unitlocalaized.future.detail.MetricFutureWeatherEntry
+import com.example.forecastapplication.data.unitlocalaized.future.simple.ImperialShortFutureWeartherEntry
+import com.example.forecastapplication.data.unitlocalaized.future.simple.MetricShortFutureWeatherEntry
 import org.threeten.bp.LocalDate
-import java.util.*
 
 @Dao
 interface FutureWeatherDao {
@@ -17,10 +18,10 @@ interface FutureWeatherDao {
     fun insert(futureWeatherEntries: List<FutureWeatherEntry>)
 
     @Query("SELECT * FROM future_weather WHERE date(date) > date(:startDate)")
-    fun getFutureWeatherMetric(startDate: LocalDate): LiveData<List<MetricFutureWeatherEntry>>
+    fun getFutureWeatherMetric(startDate: LocalDate): LiveData<List<MetricShortFutureWeatherEntry>>
 
     @Query("SELECT * FROM future_weather WHERE date(date) > date(:startDate)")
-    fun getFutureWeatherImperial(startDate: LocalDate): LiveData<List<ImperialFutureWeatherEntry>>
+    fun getFutureWeatherImperial(startDate: LocalDate): LiveData<List<ImperialShortFutureWeartherEntry>>
 
     @Query("SELECT * FROM future_weather WHERE date(date) = date(:selectedDate)")
     fun getFutureWeatherByDayMetric(selectedDate: LocalDate): LiveData<MetricFutureWeatherEntry>
