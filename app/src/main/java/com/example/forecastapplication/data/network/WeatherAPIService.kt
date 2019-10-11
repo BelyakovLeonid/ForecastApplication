@@ -1,41 +1,45 @@
 package com.example.forecastapplication.data.network
 
+import android.util.Log
 import com.example.forecastapplication.data.network.response.CurrentWeatherResponse
 import com.example.forecastapplication.data.network.response.FutureWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val API_KEY = "89e8bd89085b41b7a4b142029180210"
 
-//http://api.apixu.com/v1/current.json?key=89e8bd89085b41b7a4b142029180210&q=London&lang=en
-//https://api.apixu.com/v1/forecast.json?key=89e8bd89085b41b7a4b142029180210&q=Los%20Angeles&days=7
+
+const val API_KEY =   "d41a3797795c451a8dfc9a6e7f845946"
+const val FORECAST_DAYS_COUNT = 7
+
+//http://api.weatherbit.io/v2.0/current?key=d41a3797795c451a8dfc9a6e7f845946&city=Moscow
+//https://api.weatherbit.io/v2.0/forecast/daily?city=Moscow&key=d41a3797795c451a8dfc9a6e7f845946
 
 interface WeatherAPIService {
 
-    @GET("current.json")
+    @GET("current")
     fun getCurrentWeather(
-        @Query("q") location: String,
-        @Query("lang") language: String = "en"
+        @Query("city") city: String = "Samara",
+        @Query("lang") language: String = "en",
+        @Query("units") units: String = "M"
     ): Deferred<CurrentWeatherResponse>
 
-    @GET("forecast.json")
+    @GET("forecast/daily")
     fun getFutureWeather(
-        @Query("q") location: String,
+        @Query("city") city: String = "Samara",
         @Query("lang") language: String = "en",
-        @Query("days") days: Int = 7
+        @Query("units") units: String = "M",
+        @Query("days") days: Int = FORECAST_DAYS_COUNT
     ): Deferred<FutureWeatherResponse>
 
-
-
     companion object{
-        operator fun invoke(): WeatherAPIService {
-
+        operator fun invoke(): WeatherAPIService{
             val requestInterceptor = Interceptor{chain ->
                 val url = chain.request()
                     .url()
@@ -51,15 +55,20 @@ interface WeatherAPIService {
                 return@Interceptor chain.proceed(request)
             }
 
+            val interceptor = HttpLoggingInterceptor{message ->
+                Log.d("MyTag", message) }
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+
             val client = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(interceptor)
                 .build()
 
             return Retrofit.Builder()
-                .baseUrl("https://api.apixu.com/v1/")
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://api.weatherbit.io/v2.0/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build()
                 .create(WeatherAPIService::class.java)
         }

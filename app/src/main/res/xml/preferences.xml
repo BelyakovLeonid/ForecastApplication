@@ -26,7 +26,7 @@
             android:key="UNIT_SYSTEM"
             android:title="Unit system"
             android:summary="%s"
-            android:defaultValue="METRIC"
+            android:defaultValue="M"
             android:entries="@array/UnitSystemEntries"
             app:entryValues="@array/UnitSystemValues"/>
     </androidx.preference.PreferenceCategory>

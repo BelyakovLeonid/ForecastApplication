@@ -6,18 +6,21 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.forecastapplication.data.db.entity.CURRENT_WEATHER_ID
-import com.example.forecastapplication.data.db.entity.CurrentWeatherEntry
-import com.example.forecastapplication.data.unitlocalaized.current.ImperialCurrentWeatherEntry
-import com.example.forecastapplication.data.unitlocalaized.current.MetricCurrentWeatherEntry
+import com.example.forecastapplication.data.db.entity.CurrentWeatherAndLocationEntry
+import com.example.forecastapplication.data.db.unitlocalaized.current.CurrentWeatherEntry
+import com.example.forecastapplication.data.db.unitlocalaized.current.LocationWeatherEntry
 
 @Dao
 interface CurrentWeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(currentWeatherEntry: CurrentWeatherEntry)
+    fun upsert(currentWeatherEntry: CurrentWeatherAndLocationEntry)
 
-    @Query("SELECT * FROM current_weather WHERE id = $CURRENT_WEATHER_ID")
-    fun getCurrentWeatherMetric(): LiveData<MetricCurrentWeatherEntry>
+    @Query("SELECT * FROM current_weather_location WHERE id = $CURRENT_WEATHER_ID")
+    fun getCurrentWeather(): LiveData<CurrentWeatherEntry>
 
-    @Query("SELECT * FROM current_weather WHERE id = $CURRENT_WEATHER_ID")
-    fun getCurrentWeatherImperial(): LiveData<ImperialCurrentWeatherEntry>
+    @Query("SELECT * FROM current_weather_location WHERE id = $CURRENT_WEATHER_ID")
+    fun getLocation(): LiveData<LocationWeatherEntry>
+
+    @Query("SELECT * FROM current_weather_location WHERE id = $CURRENT_WEATHER_ID")
+    fun getLocationNonLive(): LocationWeatherEntry?
 }

@@ -9,12 +9,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forecastapplication.R
-import com.example.forecastapplication.data.network.WeatherAPIService
 import com.example.forecastapplication.local.WeatherAdapter
 import com.example.forecastapplication.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.fragment_future_weather.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class FutureWeatherFragment : ScopedFragment(){
@@ -39,9 +36,9 @@ class FutureWeatherFragment : ScopedFragment(){
         recyclerView = recyclerView_weather
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        bindUI()
+       // bindUI()
     }
-
+/*
     private fun bindUI() = launch {
         val futureWeatherList = viewModel.futureWeather.await()
 
@@ -53,5 +50,5 @@ class FutureWeatherFragment : ScopedFragment(){
             val adapter = WeatherAdapter(futureWeather, isMetric)
             recyclerView.adapter = adapter
         })
-    }
+    }*/
 }

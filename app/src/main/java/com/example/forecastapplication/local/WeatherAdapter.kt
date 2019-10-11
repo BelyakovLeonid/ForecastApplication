@@ -7,12 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.forecastapplication.R
-import com.example.forecastapplication.data.unitlocalaized.future.simple.UnitSpecificShortFutureWeatherEntry
+import com.example.forecastapplication.data.db.unitlocalaized.current.CurrentWeatherEntry
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
 class WeatherAdapter(
-    private val weatherList: List<UnitSpecificShortFutureWeatherEntry>,
+    private val weatherList: List<CurrentWeatherEntry>,
     private val isMetric: Boolean
 ): RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder>(){
 
@@ -33,9 +33,9 @@ class WeatherAdapter(
         val temperatureUnit = chooseUnitAbberviation(isMetric, "°C", "°F")
         val dtFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
-        holder.textViewTemperature.text = "${weather.avgTemperature}$temperatureUnit"
-        holder.textViewDate.text = weather.date.format(dtFormatter)
-        holder.textViewCondition.text = weather.conditionText
+        //holder.textViewTemperature.text = "${weather.avgTemperature}$temperatureUnit"
+        //holder.textViewDate.text = weather.date.format(dtFormatter)
+        //holder.textViewCondition.text = weather.conditionText
         //add weather icon
     }
 
