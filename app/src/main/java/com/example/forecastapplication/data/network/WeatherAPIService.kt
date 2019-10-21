@@ -15,8 +15,8 @@ import retrofit2.http.Query
 
 
 
-const val API_KEY =   "d41a3797795c451a8dfc9a6e7f845946"
-const val FORECAST_DAYS_COUNT = 7
+const val API_KEY = "d41a3797795c451a8dfc9a6e7f845946"
+const val FORECAST_DAYS_COUNT = 10
 
 //http://api.weatherbit.io/v2.0/current?key=d41a3797795c451a8dfc9a6e7f845946&city=Moscow
 //https://api.weatherbit.io/v2.0/forecast/daily?city=Moscow&key=d41a3797795c451a8dfc9a6e7f845946
@@ -25,14 +25,18 @@ interface WeatherAPIService {
 
     @GET("current")
     fun getCurrentWeather(
-        @Query("city") city: String = "Samara",
+        @Query("city") city: String?,
+        @Query("lat") latitude: String?,
+        @Query("lon") longitude: String?,
         @Query("lang") language: String = "en",
         @Query("units") units: String = "M"
     ): Deferred<CurrentWeatherResponse>
 
     @GET("forecast/daily")
     fun getFutureWeather(
-        @Query("city") city: String = "Samara",
+        @Query("city") city: String?,
+        @Query("lat") latitude: String?,
+        @Query("lon") longitude: String?,
         @Query("lang") language: String = "en",
         @Query("units") units: String = "M",
         @Query("days") days: Int = FORECAST_DAYS_COUNT
@@ -57,7 +61,7 @@ interface WeatherAPIService {
 
             val interceptor = HttpLoggingInterceptor{message ->
                 Log.d("MyTag", message) }
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)

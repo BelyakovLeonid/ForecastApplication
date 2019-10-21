@@ -23,4 +23,7 @@ interface CurrentWeatherDao {
 
     @Query("SELECT * FROM current_weather_location WHERE id = $CURRENT_WEATHER_ID")
     fun getLocationNonLive(): LocationWeatherEntry?
+
+    @Query("SELECT isMetric FROM current_weather_location WHERE id = $CURRENT_WEATHER_ID")
+    fun isMetricUnitSystem(): Boolean
 }

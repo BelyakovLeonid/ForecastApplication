@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.preference.PreferenceCategory
@@ -7,8 +8,8 @@
         <androidx.preference.SwitchPreference
             android:key="USE_DEVICE_LOCATION"
             android:title="Use device location"
+            android:defaultValue="false"
             android:summary="Allow to use your device location"
-            android:defaultValue="true"
             android:disableDependentsState="true"/>
 
         <!-- тег dependency означает, что данное поле зависит от значения поля с тегом USE_DEVICE_LOCATION -->

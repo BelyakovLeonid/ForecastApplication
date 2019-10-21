@@ -16,10 +16,16 @@ object  WeatherDataSource {
     val downloadedCurrentWeather: LiveData<CurrentWeatherResponse>
         get() = _downloadedCurrentWeather
 
-    suspend fun fetchCurrentWeather(location: String, languageCode: String, units: String){
+    suspend fun fetchCurrentWeather(
+        location: String?,
+        latitude: String?,
+        longitude: String?,
+        languageCode: String,
+        units: String
+    ){
         try{
             val value = apiService
-                .getCurrentWeather(location, languageCode, units)
+                .getCurrentWeather(location, latitude, longitude, languageCode, units)
                 .await()
             _downloadedCurrentWeather.postValue(value)
         }catch(e: InternetConnectionException) {
@@ -31,10 +37,16 @@ object  WeatherDataSource {
     val downloadedFutureWeather: LiveData<FutureWeatherResponse>
         get() = _downloadedFutureWeather
 
-    suspend fun fetchFutureWeather(location: String, languageCode: String){
+    suspend fun fetchFutureWeather(
+        location: String?,
+        latitude: String?,
+        longitude: String?,
+        languageCode: String,
+        units: String
+    ){
         try{
             val value = apiService
-                .getFutureWeather(location, languageCode,"M", FORECAST_DAYS_COUNT)
+                .getFutureWeather(location, latitude, longitude, languageCode,units, FORECAST_DAYS_COUNT)
                 .await()
             _downloadedFutureWeather.postValue(value)
         }catch(e: InternetConnectionException) {

@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/mobile_navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
     app:startDestination="@id/destination_current">
 
     <fragment
         android:id="@+id/destination_current"
         android:name="com.example.forecastapplication.ui.current.CurrentWeatherFragment"
-        android:label="Погода сегодня" />
+        tools:layout="@layout/fragment_current_weather"/>
 
     <fragment
         android:id="@+id/destination_future"
-        android:name="com.example.forecastapplication.ui.future.FutureWeatherFragment"
-        android:label="Прогноз погоды" />
+        android:name="com.example.forecastapplication.ui.future.list.FutureWeatherFragment"
+        tools:layout="@layout/fragment_future_weather">
+        <action
+            android:id="@+id/action_detail"
+            app:destination="@id/futureWeatherDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/destination_settings"
         android:name="com.example.forecastapplication.ui.settings.SettingsFragment"
-        android:label="Настройки" />
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings"/>
+
+    <fragment
+        android:id="@+id/futureWeatherDetailFragment"
+        android:name="com.example.forecastapplication.ui.future.detail.FutureWeatherDetailFragment"
+        tools:layout="@layout/fragment_future_detail_weather">
+        <argument
+            android:name="dateString"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
