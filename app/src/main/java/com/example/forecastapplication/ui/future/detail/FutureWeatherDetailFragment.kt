@@ -104,7 +104,10 @@ class FutureWeatherDetailFragment: ScopedFragment() {
     }
 
     private fun updateTemperatures(avgTemp: Double, maxTemp: Double, minTemp: Double) {
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"°C", "°F")
+        val metricAbbrev = resources.getString(R.string.unit_metric_temperature)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_temperature)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_temperature.text = "$avgTemp$unitAbbreviation"
         textView_maxTemp.text = "Maximum temperature: $maxTemp$unitAbbreviation"
         textView_minTemp.text = "Minimum temperature: $minTemp$unitAbbreviation"
@@ -112,19 +115,28 @@ class FutureWeatherDetailFragment: ScopedFragment() {
 
     private fun updateWind(windDirection: String, windSpeed: Double) {
         val roundedSpeed = round(windSpeed * 10) / 10
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"Kph", "Mph")
+        val metricAbbrev = resources.getString(R.string.unit_metric_wind_speed)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_wind_speed)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_wind.text = "Wind: $windDirection, $roundedSpeed $unitAbbreviation"
     }
 
     private fun updatePrecipitation(precip: Double) {
         val roundedPrecip = round(precip * 10) / 10
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, "mm", "in")
+        val metricAbbrev = resources.getString(R.string.unit_metric_precipitation)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_precipitation)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_precipitation.text = "Precipitation: $roundedPrecip $unitAbbreviation"
     }
 
     private fun updateVisibility(visibility: Double) {
         val roundedVisibility = round(visibility * 10) / 10
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"Km", "Miles")
+        val metricAbbrev = resources.getString(R.string.unit_metric_visibility)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_visibility)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_visibility.text = "Visibility: $roundedVisibility $unitAbbreviation"
     }
 

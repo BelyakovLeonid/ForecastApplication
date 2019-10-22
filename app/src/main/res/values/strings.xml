@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">ForecastApplication</string>
+
+    <string name="current_subtitle">Weather today</string>
+
+    <string name="forecast_list_subtitle">Weather forecast</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_snackbar_action_text">GRANT</string>
+    <string name="settings_snackbar_text_one">"Without Location permission app has less functionality"</string>
+    <string name="settings_snackbar_text_two">"Please, give us permission!"</string>
+    <string name="settings_toast_text">Open Permissions and grant Location permission</string>
+
+    <string name="unit_metric_temperature">°C</string>
+    <string name="unit_metric_wind_speed">Kph</string>
+    <string name="unit_metric_precipitation">mm</string>
+    <string name="unit_metric_visibility">Km</string>
+    <string name="unit_imperial_temperature">°F</string>
+    <string name="unit_imperial_wind_speed">Mph</string>
+    <string name="unit_imperial_precipitation">in</string>
+    <string name="unit_imperial_visibility">Miles</string>
+
+
 </resources>

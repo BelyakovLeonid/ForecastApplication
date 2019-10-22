@@ -55,11 +55,9 @@ class FutureWeatherFragment : ScopedFragment(){
         val futureWeatherList = viewModel.futureWeather.await()
 
         location.observe(this@FutureWeatherFragment, Observer {weatherLocation ->
-            Log.d("New1", "1")
             if(weatherLocation == null)
                 return@Observer
 
-            Log.d("New1", "2")
             updateActionbar(weatherLocation.cityName)
         })
 
@@ -76,11 +74,10 @@ class FutureWeatherFragment : ScopedFragment(){
     }
 
     private fun updateActionbar(location: String){
-        Log.d("New1", "3")
         (activity as? AppCompatActivity)?.supportActionBar?.let{
-            Log.d("New1", "4")
+            val subtitle = resources.getString(R.string.forecast_list_subtitle)
             it.title = location
-            it.subtitle = "Weather forecast"
+            it.subtitle = subtitle
         }
     }
 

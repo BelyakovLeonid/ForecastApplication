@@ -1,38 +1,26 @@
 package com.example.forecastapplication.ui.settings
 
-import android.Manifest
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.example.forecastapplication.R
 import android.content.pm.PackageManager
-import android.Manifest.permission
 import android.Manifest.permission.*
-import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
 import android.net.Uri
-import android.os.Looper
 import android.provider.Settings
 import android.util.Log
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
-import com.example.forecastapplication.ForecastApp
 import com.example.forecastapplication.ForecastApp.Companion.PACKAGE_NAME
-import com.example.forecastapplication.ForecastApp.Companion.fusedLocationProviderClient
 import com.example.forecastapplication.ui.REQUEST_CHECK_SETTINGS
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 
 const val LOCATION_KEY = "USE_DEVICE_LOCATION"
@@ -51,7 +39,8 @@ class SettingsFragment: PreferenceFragmentCompat(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity as? AppCompatActivity)?.supportActionBar?.title = "Settings"
+        val title = resources.getString(R.string.settings_title)
+        (activity as? AppCompatActivity)?.supportActionBar?.title = title
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = null
     }
 
@@ -81,7 +70,8 @@ class SettingsFragment: PreferenceFragmentCompat(){
                     val locationPreference = preferenceManager.findPreference<SwitchPreference>(LOCATION_KEY)
                     locationPreference?.isChecked = true
                 }else{
-                    makeSnackbar("Without Location permission app has less functionality")
+                    val message = resources.getString(R.string.settings_snackbar_text_one)
+                    makeSnackbar(message)
                 }
             }
         }
@@ -102,7 +92,8 @@ class SettingsFragment: PreferenceFragmentCompat(){
             }else{
                 if(shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION) ||
                     shouldShowRequestPermissionRationale(ACCESS_COARSE_LOCATION)){
-                        makeSnackbar("Please, give us permission!")
+                        val message = resources.getString(R.string.settings_snackbar_text_two)
+                        makeSnackbar(message)
                 }else{
                     requestPermissions(arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), LOCATION_REQUEST_CODE)
                 }
@@ -158,12 +149,15 @@ class SettingsFragment: PreferenceFragmentCompat(){
     }
 
     private fun makeSnackbar(message: String){
+        val actionText = resources.getString(R.string.settings_snackbar_action_text)
+        val toastText = resources.getString(R.string.settings_toast_text)
+
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG)
-            .setAction("GRANT"){
+            .setAction(actionText){
                 openSettings()
 
                 Toast.makeText(context,
-                    "Open Permissions and grant Location permission",
+                    toastText,
                     Toast.LENGTH_LONG)
                     .show()
             }

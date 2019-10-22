@@ -40,8 +40,7 @@ class CurrentWeatherFragment : ScopedFragment() {
 
         locationWeather.observe(this@CurrentWeatherFragment, Observer{ location->
             if(location == null) return@Observer
-            Log.d("MyTag11", "${location.zonedDateTime}")
-            updateLocation(location)
+            updateActionbar(location)
         })
 
         currentWeather.observe(this@CurrentWeatherFragment, Observer {weatherEntry ->
@@ -50,7 +49,6 @@ class CurrentWeatherFragment : ScopedFragment() {
             group_loading.visibility = View.GONE //GONE - вью невидима и НЕ занимает места в разметке
             // INVISIBLE - вью невидима, но ЗАНИМАЕТ место в разметке
 
-            updateDateToToday()
             updateConditionText(weatherEntry.weatherDescription)
             updateConditionIcon(weatherEntry.weatherIcon)
             updateTemperatures(weatherEntry.temperature, weatherEntry.feelsLikeTemperature)
@@ -62,12 +60,10 @@ class CurrentWeatherFragment : ScopedFragment() {
     }
 
 
-    private fun updateLocation(location: LocationWeatherEntry){
+    private fun updateActionbar(location: LocationWeatherEntry){
+        val subtitle = resources.getString(R.string.current_subtitle)
         (activity as? AppCompatActivity)?.supportActionBar?.title = location.cityName
-    }
-
-    private fun updateDateToToday(){
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Weather today"
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = subtitle
     }
 
     private fun updateConditionText(conditionText: String){
@@ -83,23 +79,35 @@ class CurrentWeatherFragment : ScopedFragment() {
     }
 
     private fun updateTemperatures(temperature: Double, temperatureFeelsLike: Double){
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"°C", "°F")
+        val metricAbbrev = resources.getString(R.string.unit_metric_temperature)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_temperature)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_temperature.text = "$temperature$unitAbbreviation"
         textView_feels_like_temperature.text = "Feels like: $temperatureFeelsLike$unitAbbreviation"
     }
 
     private fun updatePrecipitiation(precipitation: Double){
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"mm", "in")
+        val metricAbbrev = resources.getString(R.string.unit_metric_precipitation)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_precipitation)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_precipitation.text = "Precipitation: $precipitation $unitAbbreviation"
     }
 
     private fun updateWind(windSpeed: Double, windDirection: String){
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"Kph", "Mph")
+        val metricAbbrev = resources.getString(R.string.unit_metric_wind_speed)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_wind_speed)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
     }
 
     private fun updateVisibility(visibilityDistance: Double) {
-        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric,"km", "mi.")
+        val metricAbbrev = resources.getString(R.string.unit_metric_visibility)
+        val imperialAbbrev = resources.getString(R.string.unit_imperial_visibility)
+
+        val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
         textView_visibility.text = "Visibility: $visibilityDistance $unitAbbreviation"
     }
 
