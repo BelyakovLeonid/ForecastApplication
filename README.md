@@ -1,7 +1,7 @@
 # ForecastApplication
 Weather forecast application
 
-This app uses Weatherbit.io service to fetch current and future weather. 
+This app uses Weatherbit.io service to fetch current and future weather.\n
 Libraries used in this app: 
 1)Room 
 2)Retrofit2
