@@ -42,7 +42,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Loading"
+        android:text="@string/layout_loading"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -199,6 +199,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_sunrise"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="Sunsete: 13:23" />
+        tools:text="Sunset: 13:23" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package com.example.forecastapplication.ui.current
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +51,7 @@ class CurrentWeatherFragment : ScopedFragment() {
             updateConditionText(weatherEntry.weatherDescription)
             updateConditionIcon(weatherEntry.weatherIcon)
             updateTemperatures(weatherEntry.temperature, weatherEntry.feelsLikeTemperature)
-            updatePrecipitiation(weatherEntry.precipitationVolume)
+            updatePrecipitation(weatherEntry.precipitationVolume)
             updateWind(weatherEntry.windSpeed, weatherEntry.windDirection)
             updateVisibility(weatherEntry.visibility)
             updateSunMovement(weatherEntry.sunrise, weatherEntry.sunset)
@@ -83,16 +82,16 @@ class CurrentWeatherFragment : ScopedFragment() {
         val imperialAbbrev = resources.getString(R.string.unit_imperial_temperature)
 
         val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
-        textView_temperature.text = "$temperature$unitAbbreviation"
-        textView_feels_like_temperature.text = "Feels like: $temperatureFeelsLike$unitAbbreviation"
+        textView_temperature.text = resources.getString(R.string.temperature_text, temperature, unitAbbreviation)
+        textView_feels_like_temperature.text = resources.getString(R.string.temperature_feels_like_text, temperatureFeelsLike, unitAbbreviation)
     }
 
-    private fun updatePrecipitiation(precipitation: Double){
+    private fun updatePrecipitation(precipitation: Double){
         val metricAbbrev = resources.getString(R.string.unit_metric_precipitation)
         val imperialAbbrev = resources.getString(R.string.unit_imperial_precipitation)
 
         val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
-        textView_precipitation.text = "Precipitation: $precipitation $unitAbbreviation"
+        textView_precipitation.text = resources.getString(R.string.precipitation_text, precipitation, unitAbbreviation)
     }
 
     private fun updateWind(windSpeed: Double, windDirection: String){
@@ -100,7 +99,7 @@ class CurrentWeatherFragment : ScopedFragment() {
         val imperialAbbrev = resources.getString(R.string.unit_imperial_wind_speed)
 
         val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
-        textView_wind.text = "Wind: $windDirection, $windSpeed $unitAbbreviation"
+        textView_wind.text = resources.getString(R.string.wind_text, windDirection, windSpeed, unitAbbreviation)
     }
 
     private fun updateVisibility(visibilityDistance: Double) {
@@ -108,12 +107,12 @@ class CurrentWeatherFragment : ScopedFragment() {
         val imperialAbbrev = resources.getString(R.string.unit_imperial_visibility)
 
         val unitAbbreviation = chooseUnitAbberviation(viewModel.unitSystemIsMetric, metricAbbrev, imperialAbbrev)
-        textView_visibility.text = "Visibility: $visibilityDistance $unitAbbreviation"
+        textView_visibility.text = resources.getString(R.string.visibility_text, visibilityDistance, unitAbbreviation)
     }
 
     private fun updateSunMovement(sunrise: String, sunset: String){
-        textView_sunrise.text = "Sunrise: $sunrise"
-        textView_sunset.text = "Sunset: $sunset"
+        textView_sunrise.text = resources.getString(R.string.sunrise_text, sunrise)
+        textView_sunset.text = resources.getString(R.string.sunset_text, sunset)
     }
 
 }

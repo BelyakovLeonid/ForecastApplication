@@ -4,28 +4,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.preference.PreferenceCategory
-        android:title="Weather location">
+        android:title="@string/preferences_weather_location_main_title">
         <androidx.preference.SwitchPreference
             android:key="USE_DEVICE_LOCATION"
-            android:title="Use device location"
+            android:title="@string/preferences_device_location_title"
             android:defaultValue="false"
-            android:summary="Allow to use your device location"
+            android:summary="@string/preferences_device_location_summary"
             android:disableDependentsState="true"/>
 
         <!-- тег dependency означает, что данное поле зависит от значения поля с тегом USE_DEVICE_LOCATION -->
         <androidx.preference.EditTextPreference
             android:key="CUSTOM_LOCATION"
-            android:title="Location"
-            android:summary="Set custom location"
+            android:title="@string/preferences_custom_location_title"
+            android:summary="@string/preferences_custom_location_summary"
             android:defaultValue="Moscow"
             android:dependency="USE_DEVICE_LOCATION"/>
     </androidx.preference.PreferenceCategory>
 
     <androidx.preference.PreferenceCategory
-        android:title="Units">
+        android:title="@string/preferences_units_main_title">
         <androidx.preference.ListPreference
             android:key="UNIT_SYSTEM"
-            android:title="Unit system"
+            android:title="@string/preferences_units_title"
             android:summary="%s"
             android:defaultValue="M"
             android:entries="@array/UnitSystemEntries"

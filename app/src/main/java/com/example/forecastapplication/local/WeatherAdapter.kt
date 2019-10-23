@@ -7,11 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
 import com.example.forecastapplication.ForecastApp.Companion.PACKAGE_NAME
 import com.example.forecastapplication.R
 import com.example.forecastapplication.data.db.entity.FutureWeatherEntry
-import com.example.forecastapplication.data.db.unitlocalaized.current.CurrentWeatherEntry
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
@@ -34,15 +32,18 @@ class WeatherAdapter(
     }
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
+        val metricAbbrev = holder.itemView.resources.getString(R.string.unit_metric_temperature)
+        val imperialAbbrev = holder.itemView.resources.getString(R.string.unit_imperial_temperature)
+
         val weather = weatherList[position]
-        val temperatureUnit = chooseUnitAbberviation(isMetric, "°C", "°F")
+        val unitAbbreviation = chooseUnitAbberviation(isMetric, metricAbbrev, imperialAbbrev)
         val dtFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
         val iconResId = holder.itemView.resources.getIdentifier(
             weather.weather.icon,
             "drawable",
             PACKAGE_NAME)
 
-        holder.textViewTemperature.text = "${weather.temp}$temperatureUnit"
+        holder.textViewTemperature.text = holder.itemView.resources.getString(R.string.temperature_text, weather.temp, unitAbbreviation )
         holder.textViewDate.text = weather.validDate.format(dtFormatter)
         holder.textViewCondition.text = weather.weather.description
         Glide.with(holder.itemView).load(iconResId).into(holder.imageViewCondition)

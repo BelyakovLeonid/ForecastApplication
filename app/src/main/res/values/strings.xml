@@ -5,6 +5,8 @@
 
     <string name="forecast_list_subtitle">Weather forecast</string>
 
+    <string name="forecast_detail_subtitle">Weather at %1$s</string>
+
     <string name="settings_title">Settings</string>
     <string name="settings_snackbar_action_text">GRANT</string>
     <string name="settings_snackbar_text_one">"Without Location permission app has less functionality"</string>
@@ -20,5 +22,25 @@
     <string name="unit_imperial_precipitation">in</string>
     <string name="unit_imperial_visibility">Miles</string>
 
+    <string name="temperature_text">%1$3.1f%2$s</string>
+    <string name="temperature_feels_like_text">Feels like: %1$3.1f%2$s</string>
+    <string name="temperature_maximum_text">Maximum temperature: %1$3.1f%2$s</string>
+    <string name="temperature_minimum_text">Minimum temperature: %1$3.1f%2$s</string>
+    <string name="precipitation_text">Precipitation: %1$4.1f %2$s</string>
+    <string name="wind_text">Wind: %1$s, %2$4.1f %3$s</string>
+    <string name="visibility_text">Visibility: %1$4.1f %2$s</string>
+    <string name="sunrise_text">Sunrise: %1$s</string>
+    <string name="sunset_text">Sunset: %1$s</string>
+
+    <string name="layout_loading">Loading</string>
+    <string name="layout_average_temperature">Average temperature:</string>
+
+    <string name="preferences_weather_location_main_title">Weather location</string>
+    <string name="preferences_device_location_title">Use device location</string>
+    <string name="preferences_device_location_summary">Allow to use your device location</string>
+    <string name="preferences_custom_location_title">Location</string>
+    <string name="preferences_custom_location_summary">Set custom location</string>
+    <string name="preferences_units_main_title">Units</string>
+    <string name="preferences_units_title">Unit system</string>
 
 </resources>
