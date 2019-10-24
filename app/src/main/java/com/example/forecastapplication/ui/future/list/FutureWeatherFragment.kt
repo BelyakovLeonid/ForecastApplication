@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.forecastapplication.ForecastApp
 import com.example.forecastapplication.R
 import com.example.forecastapplication.data.db.converters.DateToStringConverter
 import com.example.forecastapplication.data.db.entity.FutureWeatherEntry
@@ -51,6 +52,8 @@ class FutureWeatherFragment : ScopedFragment(){
     }
 
     private fun bindUI() = launch {
+        ForecastApp.activateLocationService()
+
         val location = viewModel.weatherLocation.await()
         val futureWeatherList = viewModel.futureWeather.await()
 

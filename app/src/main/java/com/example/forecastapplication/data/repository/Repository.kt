@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.forecastapplication.ForecastApp.Companion.dataBase
 import com.example.forecastapplication.data.db.entity.FutureWeatherEntry
-import com.example.forecastapplication.data.db.unitlocalaized.UnitSystem
-import com.example.forecastapplication.data.db.unitlocalaized.current.CurrentWeatherEntry
-import com.example.forecastapplication.data.db.unitlocalaized.current.LocationWeatherEntry
+import com.example.forecastapplication.local.UnitSystem
+import com.example.forecastapplication.data.db.additional_classes.CurrentWeatherEntry
+import com.example.forecastapplication.data.db.additional_classes.LocationWeatherEntry
 import com.example.forecastapplication.data.network.FORECAST_DAYS_COUNT
 import com.example.forecastapplication.data.providers.LocationProvider
 import com.example.forecastapplication.data.network.response.CurrentWeatherResponse

@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.example.forecastapplication.ForecastApp
 import com.example.forecastapplication.R
-import com.example.forecastapplication.data.db.unitlocalaized.current.LocationWeatherEntry
+import com.example.forecastapplication.data.db.additional_classes.LocationWeatherEntry
 import com.example.forecastapplication.local.chooseUnitAbberviation
 import com.example.forecastapplication.ui.base.ScopedFragment
 import kotlinx.android.synthetic.main.fragment_current_weather.*
@@ -33,6 +34,8 @@ class CurrentWeatherFragment : ScopedFragment() {
     }
 
     private fun bindUI() = launch {
+        ForecastApp.activateLocationService()
+
         val currentWeather = viewModel.currentWeather.await()
         val locationWeather = viewModel.weatherLocation.await()
 

@@ -18,6 +18,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.example.forecastapplication.ForecastApp
+import com.example.forecastapplication.ForecastApp.Companion.activateLocationService
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
@@ -45,23 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode){
             REQUEST_CHECK_SETTINGS -> {
-                val locationRequest = LocationRequest.create()?.apply {
-                    interval = 10000
-                    fastestInterval = 5000
-                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                }
-
-                val locationCallback = object : LocationCallback(){
-                    override fun onLocationResult(locationResult: LocationResult?) {
-                        locationResult ?: return
-                        ForecastApp.fusedLocationProviderClient.removeLocationUpdates(this)
-                    }
-                }
-                ForecastApp.fusedLocationProviderClient.requestLocationUpdates(
-                    locationRequest,
-                    locationCallback,
-                    Looper.getMainLooper()
-                )
+                activateLocationService()
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }

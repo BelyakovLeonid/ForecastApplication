@@ -27,6 +27,27 @@ class ForecastApp: Application() {
         //думаю, что не сильно страшно
         @SuppressLint("StaticFieldLeak")
         lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+        fun activateLocationService(){
+            val locationRequest = LocationRequest.create()?.apply {
+                interval = 10000
+                fastestInterval = 5000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+
+            val locationCallback = object : LocationCallback(){
+                override fun onLocationResult(locationResult: LocationResult?) {
+                    locationResult ?: return
+                    fusedLocationProviderClient.removeLocationUpdates(this)
+                }
+            }
+
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        }
     }
 
     override fun onCreate() {
@@ -41,7 +62,6 @@ class ForecastApp: Application() {
         PACKAGE_NAME = packageName
 
     }
-
 
 
 }

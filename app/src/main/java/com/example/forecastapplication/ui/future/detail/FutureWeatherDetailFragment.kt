@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.example.forecastapplication.ForecastApp
 import com.example.forecastapplication.R
 import com.example.forecastapplication.data.db.converters.DateToStringConverter
 import com.example.forecastapplication.local.chooseUnitAbberviation

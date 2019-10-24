@@ -15,6 +15,7 @@ import android.provider.Settings
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.example.forecastapplication.ForecastApp
 import com.example.forecastapplication.ForecastApp.Companion.PACKAGE_NAME
 import com.example.forecastapplication.ui.REQUEST_CHECK_SETTINGS
 import com.google.android.gms.common.api.ResolvableApiException
@@ -88,6 +89,7 @@ class SettingsFragment: PreferenceFragmentCompat(){
             checkGPSSettings()
 
             if(checkHasLocationPermission()){
+                ForecastApp.activateLocationService()
                 return@setOnPreferenceChangeListener true
             }else{
                 if(shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION) ||
