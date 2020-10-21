@@ -14,3 +14,5 @@ Libraries used in this app:
 4)Glide
 
 5)Arcitecture & navigation components
+
+P.s. используемый API в данный момент стал недоступен
